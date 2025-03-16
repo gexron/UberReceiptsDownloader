@@ -18,9 +18,9 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
 
     private static final Logger logger = Logger.getAnonymousLogger();
 
-    private WebDriver driver;
-    private WebDriverWait driverWait;
-    private WebElementsDirectory webElementsDirectory;
+    private final WebDriver driver;
+    private final WebDriverWait driverWait;
+    private final WebElementsDirectory webElementsDirectory;
 
     private boolean moreResultsLoaded;
 
@@ -124,7 +124,6 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
 
     private List<Trip> loadAllTrips(LocalDateTime monthSelected) {
         long startTimeInMs = monthSelected.toEpochSecond(ZoneOffset.UTC) * 1000;
-        startTimeInMs = 1704060000000L;
         long endTimeInMs = monthSelected.plusMonths(1L).minusSeconds(1L).toEpochSecond(ZoneOffset.UTC) * 1000;
 
         String uberUrl = Trip.UBER_TRIPS_URL + "?from="

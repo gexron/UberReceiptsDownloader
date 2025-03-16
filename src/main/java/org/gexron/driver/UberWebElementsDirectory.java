@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UberWebElementsDirectory implements WebElementsDirectory {
     private static UberWebElementsDirectory uberWebElementsDirectory;
@@ -18,6 +19,7 @@ public class UberWebElementsDirectory implements WebElementsDirectory {
     private static final String PASSWORD_ID = "PASSWORD";
     private static final String TRIPS_PERIOD_LIST_XPATH = "//div/div[@data-baseweb='select'][2]/div";
     private static final String TRIPS_SECTION_HEADER_XPATH = "//h3";
+    private static final String SINGLE_TRIP_SECTION_HEADER_XPATH = "//h4";
     private static final String MORE_BUTTON_XPATH = "//button[@data-baseweb='button']";
     private static final String CURRENT_MONTH_OPTION_XPATH = "//ul[@data-baseweb='menu']/li[3]";//TODO: return value back to 3
     private static final String FIRST_LOAD_LAST_TRIP_DIV_XPATH = "//main/div/div[1]/div[3]/div";
@@ -27,6 +29,7 @@ public class UberWebElementsDirectory implements WebElementsDirectory {
     private static final String DOWNLOAD_PDF_LINK_XPATH = "//a[@data-tracking-name='download-receipt-pdf-link']";
     private static final String TITLE_XPATH = "//h1";
     private static final String FORWARD_BUTTON_ID = "forward-button";
+    private static final String TRIP_ROUTE_ENDPOINTS_XPATH = "//li/div[last()]/div[1]";
 
     // First load
     ////main/div/div[1]/div[3]/div
@@ -66,6 +69,11 @@ public class UberWebElementsDirectory implements WebElementsDirectory {
     @Override
     public WebElement getTripsSectionHeader(WebDriverWait driverWait) {
         return driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(TRIPS_SECTION_HEADER_XPATH)));
+    }
+
+    @Override
+    public WebElement getSingleTripSectionHeader(WebDriverWait driverWait) {
+        return driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(SINGLE_TRIP_SECTION_HEADER_XPATH)));
     }
 
     @Override
@@ -121,5 +129,13 @@ public class UberWebElementsDirectory implements WebElementsDirectory {
                 "btn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));" +
                 "btn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));" +
                 "btn.dispatchEvent(new MouseEvent('click', { bubbles: true }));";
+    }
+
+    @Override
+    public List<String> getTripStartAndEnd(WebDriver driver) {
+        return driver.findElements(By.xpath(TRIP_ROUTE_ENDPOINTS_XPATH))
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
     }
 }

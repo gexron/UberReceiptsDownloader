@@ -1,6 +1,7 @@
 package org.gexron.receiptsdownload;
 
 import org.gexron.driver.WebElementsDirectory;
+import org.gexron.location.LocationUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -42,16 +43,31 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
             logger.info("No trips found!");
             return;
         }
+        logger.info("Start filtering trips according to status");
+        List<Trip> completedTrips = getCompletedTrips(trips);
 
-        logger.info("Start filtering trips");
-        List<String> receiptDownloadLinks = getCompletedTripsReceiptsDownloadLinks(trips);
+        logger.info("Start filtering out non-company trips");
+        List<Trip> companyTrips = getCompanyTrips(completedTrips);
 
         logger.info("Start downloading receipts");
-        downloadReceipts(receiptDownloadLinks);
+        downloadReceipts(companyTrips.stream().map(Trip::getTripReceiptDownloadUrl).collect(Collectors.toList()));
         logger.info("Finished downloading receipts");
     }
 
+    private List<Trip> getCompanyTrips(List<Trip> trips) {
+        return trips.stream().filter(trip -> {
+            driver.get(trip.getTripUrl());
+            waitSingleTripSectionLoaded();
+            return LocationUtils.isTripCompanyRelated(webElementsDirectory.getTripStartAndEnd(driver));
+        })
+                .collect(Collectors.toList());
+    }
+
     private void downloadReceipts(List<String> receiptDownloadLinks) {
+        if (receiptDownloadLinks.isEmpty()) {
+            logger.info("No trips found!");
+            return;
+        }
         receiptDownloadLinks.forEach(url -> {
             ((JavascriptExecutor) driver).executeScript("window.open('" + url + "', '_blank');");
             try {
@@ -62,11 +78,10 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
         });
     }
 
-    private List<String> getCompletedTripsReceiptsDownloadLinks(List<Trip> trips) {
+    private List<Trip> getCompletedTrips(List<Trip> trips) {
         return trips
                 .stream()
                 .filter(trip -> !(trip.getTripCost().contains("EGP0") || trip.getTripCost().contains("EGP 0")))
-                .map(Trip::getTripReceiptDownloadUrl)
                 .collect(Collectors.toList());
     }
 
@@ -102,6 +117,10 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
         webElementsDirectory.getTripsSectionHeader(driverWait);
     }
 
+    private void waitSingleTripSectionLoaded() {
+        webElementsDirectory.getSingleTripSectionHeader(driverWait);
+    }
+
     private List<WebElement> getTripsDivs() {
         if (moreResultsLoaded) {
             return webElementsDirectory.getTripsDivsAfterLoadingMoreResults(driver);
@@ -124,6 +143,7 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
 
     private List<Trip> loadAllTrips(LocalDateTime monthSelected) {
         long startTimeInMs = monthSelected.toEpochSecond(ZoneOffset.UTC) * 1000;
+        startTimeInMs = 0L;
         long endTimeInMs = monthSelected.plusMonths(1L).minusSeconds(1L).toEpochSecond(ZoneOffset.UTC) * 1000;
 
         String uberUrl = Trip.UBER_TRIPS_URL + "?from="

@@ -18,6 +18,8 @@ public interface WebElementsDirectory {
 
     WebElement getTripsSectionHeader(WebDriverWait driverWait);
 
+    WebElement getSingleTripSectionHeader(WebDriverWait driverWait);
+
     WebElement getTripsPeriodListButton(WebDriverWait driverWait);
 
     WebElement getCurrentMonthOption(WebDriverWait driverWait);
@@ -35,4 +37,6 @@ public interface WebElementsDirectory {
     WebElement getTitle(WebDriverWait driverWait);
 
     String getClickScript();
+
+    List<String> getTripStartAndEnd(WebDriver driver);
 }

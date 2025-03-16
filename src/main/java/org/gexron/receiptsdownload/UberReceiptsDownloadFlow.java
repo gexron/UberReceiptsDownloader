@@ -143,7 +143,6 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
 
     private List<Trip> loadAllTrips(LocalDateTime monthSelected) {
         long startTimeInMs = monthSelected.toEpochSecond(ZoneOffset.UTC) * 1000;
-        startTimeInMs = 0L;
         long endTimeInMs = monthSelected.plusMonths(1L).minusSeconds(1L).toEpochSecond(ZoneOffset.UTC) * 1000;
 
         String uberUrl = Trip.UBER_TRIPS_URL + "?from="

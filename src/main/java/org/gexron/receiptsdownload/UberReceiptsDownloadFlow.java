@@ -82,8 +82,6 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
         return trips
                 .stream()
                 .filter(Trip::isTripCompleted)
-                .map(Trip::getTripReceiptDownloadUrl)
-                .filter(trip -> !(trip.getTripCost().contains("EGP0") || trip.getTripCost().contains("EGP 0")))
                 .collect(Collectors.toList());
     }
 
@@ -137,7 +135,9 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
                     Trip trip = new Trip();
                     trip.setId(tripDiv.getAttribute("href").split("/")[4]);
                     String costAndStatus = tripDiv.findElement(By.xpath("./div[2]/div[2]/div/div[1]")).getText().split("\n")[1];
-                    trip.setTripCost(costAndStatus.split(" • ")[0]);
+                    trip.setTripStatus(costAndStatus.split(" • ").length > 1 ?
+                            costAndStatus.split(" • ")[1] :
+                            "Completed");
                     return trip;
                 })
                 .collect(Collectors.toList());

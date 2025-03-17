@@ -32,7 +32,7 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
 
     @Override
     public void process() {
-        logger.info("Selecting current month");
+        logger.info("Selecting month");
         LocalDateTime monthSelected = selectMonth();
 
         logger.info("Loading all trips");

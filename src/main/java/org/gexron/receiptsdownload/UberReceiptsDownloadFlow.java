@@ -33,7 +33,7 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
 
     @Override
     public void process() {
-        logger.info("Selecting current month");
+        logger.info("Selecting month");
         LocalDateTime monthSelected = selectMonth();
 
         logger.info("Loading all trips");
@@ -81,6 +81,8 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
     private List<Trip> getCompletedTrips(List<Trip> trips) {
         return trips
                 .stream()
+                .filter(Trip::isTripCompleted)
+                .map(Trip::getTripReceiptDownloadUrl)
                 .filter(trip -> !(trip.getTripCost().contains("EGP0") || trip.getTripCost().contains("EGP 0")))
                 .collect(Collectors.toList());
     }

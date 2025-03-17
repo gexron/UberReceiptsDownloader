@@ -31,6 +31,8 @@ public class LocationUtils {
     }
 
     private static boolean isCompanyApproximateLocation(String tripEndpoint) {
+        if (tripEndpoint.contains("N Teseen") && tripEndpoint.contains("خلف فندق الدوسيت") && tripEndpoint.contains("223"))
+            return true;
         double[] latitudeAndLongitude = getLongitudeAndLatitude(tripEndpoint);
         return (latitudeAndLongitude[0] >= MIN_LATITUDE
                 && latitudeAndLongitude[0] <= MAX_LATITUDE

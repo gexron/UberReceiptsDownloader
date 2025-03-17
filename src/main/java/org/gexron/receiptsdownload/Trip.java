@@ -5,14 +5,14 @@ public class Trip {
     public static final String UBER_TRIPS_URL = "https://riders.uber.com/trips";
 
     private String id;
-    private String tripCost;
+    private String tripStatus;
 
-    public String getTripCost() {
-        return tripCost;
+    public boolean isTripCompleted() {
+        return tripStatus.equals("Completed");
     }
 
-    public void setTripCost(String tripCost) {
-        this.tripCost = tripCost;
+    public void setTripStatus(String tripStatus) {
+        this.tripStatus = tripStatus;
     }
 
     public void setId(String id) {

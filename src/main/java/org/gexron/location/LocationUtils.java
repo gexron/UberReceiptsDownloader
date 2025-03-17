@@ -39,9 +39,8 @@ public class LocationUtils {
     }
 
     private static double[] getLongitudeAndLatitude(String address) {
-        GeocodingResult[] results = null;
         try {
-            results = GeocodingApi.geocode(context, address).await();
+            GeocodingResult[] results = GeocodingApi.geocode(context, address).await();
             LatLng location = results[0].geometry.location;
             logger.info("Latitude: " + location.lat + ", Longitude: " + location.lng);
             return new double[]{location.lat, location.lng};

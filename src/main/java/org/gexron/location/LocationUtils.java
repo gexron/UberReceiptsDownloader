@@ -17,9 +17,9 @@ public class LocationUtils {
     private static final Logger logger = Logger.getAnonymousLogger();
 
     private static final double MIN_LATITUDE = 30.028390165683653;
-    private static final double MAX_LATITUDE = 30.02947049999885;
+    private static final double MAX_LATITUDE = 30.03042510;
     private static final double MIN_LONGITUDE = 31.45432572490963;
-    private static final double MAX_LONGITUDE = 31.455802410760185;
+    private static final double MAX_LONGITUDE = 31.46722130;
 
     private static final GeoApiContext context = new GeoApiContext.Builder()
             .apiKey("AIzaSyCQcUrTtqdqnhawc2GGHSQpN2ueTtvt7jY")

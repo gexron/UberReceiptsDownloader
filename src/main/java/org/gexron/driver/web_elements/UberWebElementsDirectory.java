@@ -1,4 +1,4 @@
-package org.gexron.driver;
+package org.gexron.driver.web_elements;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;

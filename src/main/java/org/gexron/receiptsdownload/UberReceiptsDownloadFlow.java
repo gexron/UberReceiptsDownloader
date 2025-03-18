@@ -1,6 +1,6 @@
 package org.gexron.receiptsdownload;
 
-import org.gexron.driver.WebElementsDirectory;
+import org.gexron.driver.web_elements.WebElementsDirectory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 

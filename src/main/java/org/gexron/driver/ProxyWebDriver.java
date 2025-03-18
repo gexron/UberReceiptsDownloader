@@ -1,6 +1,7 @@
 package org.gexron.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.gexron.driver.web_elements.WebElementsDirectory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;

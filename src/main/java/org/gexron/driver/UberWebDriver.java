@@ -12,8 +12,8 @@ public class UberWebDriver extends ProxyWebDriver {
 
     private static final Logger logger = Logger.getAnonymousLogger();
 
-    private AuthenticationFlow authenticationFlow;
-    private ReceiptsDownloadFlow receiptsDownloadFlow;
+    private final AuthenticationFlow authenticationFlow;
+    private final ReceiptsDownloadFlow receiptsDownloadFlow;
 
     UberWebDriver() {
         super();

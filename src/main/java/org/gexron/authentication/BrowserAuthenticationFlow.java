@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class BrowserAuthenticationFlow implements AuthenticationFlow {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public BrowserAuthenticationFlow(WebDriver driver) {
         this.driver = driver;

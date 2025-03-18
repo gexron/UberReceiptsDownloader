@@ -45,10 +45,6 @@ public abstract class ProxyWebDriver {
 
             EdgeOptions options = new EdgeOptions();
             Map<String, Object> edgeOptions = new HashMap<>();
-            edgeOptions.put("args", new String[]{
-                    "user-data-dir=" + userDataDir,
-                    "profile-directory=Default"
-            });
             options.setCapability("ms:edgeOptions", edgeOptions);
             driver = new EdgeDriver(options);
         }
@@ -71,7 +67,7 @@ public abstract class ProxyWebDriver {
 
         String browserProfilePath = null;
         if (os.contains("win")) {
-            browserProfilePath = Paths.get(userHome, "AppData", "Local", "Microsoft", "Edge", "User Data").toString();
+            browserProfilePath = Paths.get(userHome, "AppData", "Local", "Microsoft Edge", "User Data").toString();
         } else if (os.contains("mac")) {
             browserProfilePath = Paths.get(userHome, "Library", "Application Support", "Google", "Chrome").toString();
         }

@@ -7,7 +7,7 @@ import org.gexron.receipts_download.Trip;
 public class UberReceiptsDownloader {
 
     public static void main(String[] args) {
-        ProxyWebDriver driver = new ProxyWebDriverFactory().getProxyWebDriver("Uber");
+        ProxyWebDriver driver = new ProxyWebDriverFactory().getProxyWebDriver();
 
         try {
             driver.get(Trip.UBER_TRIPS_URL);

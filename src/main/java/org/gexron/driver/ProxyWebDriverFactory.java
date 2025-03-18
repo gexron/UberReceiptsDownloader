@@ -2,7 +2,7 @@ package org.gexron.driver;
 
 public class ProxyWebDriverFactory {
 
-    public ProxyWebDriver getProxyWebDriver(String tripProvider) {
+    public ProxyWebDriver getProxyWebDriver() {
         return new UberWebDriver();
     }
 }

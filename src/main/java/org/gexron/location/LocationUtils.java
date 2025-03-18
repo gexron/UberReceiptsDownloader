@@ -6,6 +6,7 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LocationUtils {
@@ -47,7 +48,7 @@ public class LocationUtils {
             logger.info("Latitude: " + location.lat + ", Longitude: " + location.lng);
             return new double[]{location.lat, location.lng};
         } catch (Exception e) {
-            return new double[]{MAX_LATITUDE, MAX_LONGITUDE};
+            return new double[]{0.0, 0.0};
         }
     }
 }

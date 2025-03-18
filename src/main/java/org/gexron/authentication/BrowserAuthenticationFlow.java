@@ -21,7 +21,7 @@ public class BrowserAuthenticationFlow implements AuthenticationFlow {
                 if (driver.getTitle().toLowerCase().contains("my trips")) {
                     break;
                 }
-                Thread.sleep(5000); // Check every 5 seconds
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

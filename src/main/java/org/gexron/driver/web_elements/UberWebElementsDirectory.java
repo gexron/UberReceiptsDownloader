@@ -19,14 +19,6 @@ public class UberWebElementsDirectory implements WebElementsDirectory {
     private static final String FIRST_LOAD_TRIPS_DIVS_XPATH = "//main/div/div[1]/div[4]/span/div";
     private static final String MORE_LOADED_TRIPS_DIVS_XPATH = "//main/div/div/div[2]/span/div";
 
-
-    // First load
-    ////main/div/div[1]/div[3]/div
-    ////main/div/div[1]/div[4]/span/div
-
-    // After loading more results
-    ////main/div/div/div[2]/span/div
-
     public static UberWebElementsDirectory getInstance() {
         if (uberWebElementsDirectory == null)
             uberWebElementsDirectory = new UberWebElementsDirectory();

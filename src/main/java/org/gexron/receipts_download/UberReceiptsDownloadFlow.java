@@ -1,7 +1,6 @@
 package org.gexron.receipts_download;
 
 import org.gexron.driver.web_elements.WebElementsDirectory;
-import org.gexron.location.LocationUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -43,24 +42,12 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
             logger.info("No trips found!");
             return;
         }
-        logger.info("Start filtering trips according to status");
-        List<Trip> completedTrips = getCompletedTrips(trips);
-
-        logger.info("Start filtering out non-company trips");
-        List<Trip> companyTrips = getCompanyTrips(completedTrips);
+        logger.info("Start getting complete trips' receipts download links");
+        List<String> receiptsDownloadLinks = getCompletedTrips(trips);
 
         logger.info("Start downloading receipts");
-        downloadReceipts(companyTrips.stream().map(Trip::getTripReceiptDownloadUrl).collect(Collectors.toList()));
+        downloadReceipts(receiptsDownloadLinks);
         logger.info("Finished downloading receipts");
-    }
-
-    private List<Trip> getCompanyTrips(List<Trip> trips) {
-        return trips.stream().filter(trip -> {
-            driver.get(trip.getTripUrl());
-            waitSingleTripSectionLoaded();
-            return LocationUtils.isTripCompanyRelated(webElementsDirectory.getTripStartAndEnd(driver));
-        })
-                .collect(Collectors.toList());
     }
 
     private void downloadReceipts(List<String> receiptDownloadLinks) {
@@ -78,10 +65,11 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
         });
     }
 
-    private List<Trip> getCompletedTrips(List<Trip> trips) {
+    private List<String> getCompletedTrips(List<Trip> trips) {
         return trips
                 .stream()
                 .filter(Trip::isTripCompleted)
+                .map(Trip::getTripReceiptDownloadUrl)
                 .collect(Collectors.toList());
     }
 
@@ -115,10 +103,6 @@ public class UberReceiptsDownloadFlow implements ReceiptsDownloadFlow {
 
     private void waitTripsSectionLoaded() {
         webElementsDirectory.getTripsSectionHeader(driverWait);
-    }
-
-    private void waitSingleTripSectionLoaded() {
-        webElementsDirectory.getSingleTripSectionHeader(driverWait);
     }
 
     private List<WebElement> getTripsDivs() {

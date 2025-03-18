@@ -16,5 +16,9 @@ public interface WebElementsDirectory {
 
     List<WebElement> getTripsDivsAfterLoadingMoreResults(WebDriver driver);
 
+    List<String> getTripStartAndEnd(WebDriver driver);
+
+    WebElement getSingleTripSectionHeader(WebDriverWait driverWait);
+
     String getClickScript();
 }

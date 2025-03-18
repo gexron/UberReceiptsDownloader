@@ -9,15 +9,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UberWebElementsDirectory implements WebElementsDirectory {
     private static UberWebElementsDirectory uberWebElementsDirectory;
 
     private static final String TRIPS_SECTION_HEADER_XPATH = "//h3";
+    private static final String SINGLE_TRIP_SECTION_HEADER_XPATH = "//h4";
     private static final String MORE_BUTTON_XPATH = "//button[@data-baseweb='button']";
     private static final String FIRST_LOAD_LAST_TRIP_DIV_XPATH = "//main/div/div[1]/div[3]/div";
     private static final String FIRST_LOAD_TRIPS_DIVS_XPATH = "//main/div/div[1]/div[4]/span/div";
     private static final String MORE_LOADED_TRIPS_DIVS_XPATH = "//main/div/div/div[2]/span/div";
+    private static final String TRIP_ROUTE_ENDPOINTS_XPATH = "//li/div[last()]/div[1]";
 
     public static UberWebElementsDirectory getInstance() {
         if (uberWebElementsDirectory == null)
@@ -25,7 +28,7 @@ public class UberWebElementsDirectory implements WebElementsDirectory {
         return uberWebElementsDirectory;
     }
     private UberWebElementsDirectory() {
-        
+
     }
 
     @Override
@@ -55,6 +58,19 @@ public class UberWebElementsDirectory implements WebElementsDirectory {
     @Override
     public List<WebElement> getTripsDivsAfterLoadingMoreResults(WebDriver driver) {
         return driver.findElements(By.xpath(MORE_LOADED_TRIPS_DIVS_XPATH));
+    }
+
+    @Override
+    public List<String> getTripStartAndEnd(WebDriver driver) {
+        return driver.findElements(By.xpath(TRIP_ROUTE_ENDPOINTS_XPATH))
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public WebElement getSingleTripSectionHeader(WebDriverWait driverWait) {
+        return driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(SINGLE_TRIP_SECTION_HEADER_XPATH)));
     }
 
     public String getClickScript() {

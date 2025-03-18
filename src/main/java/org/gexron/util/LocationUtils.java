@@ -1,4 +1,4 @@
-package org.gexron.location;
+package org.gexron.util;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
@@ -6,7 +6,6 @@ import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LocationUtils {

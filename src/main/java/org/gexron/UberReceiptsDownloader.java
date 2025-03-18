@@ -2,7 +2,7 @@ package org.gexron;
 
 import org.gexron.driver.ProxyWebDriver;
 import org.gexron.driver.ProxyWebDriverFactory;
-import org.gexron.receiptsdownload.Trip;
+import org.gexron.receipts_download.Trip;
 
 public class UberReceiptsDownloader {
 

@@ -1,4 +1,4 @@
-package org.gexron.receiptsdownload;
+package org.gexron.receipts_download;
 
 import org.gexron.driver.web_elements.WebElementsDirectory;
 import org.openqa.selenium.*;

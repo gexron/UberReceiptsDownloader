@@ -45,6 +45,7 @@ public abstract class ProxyWebDriver {
 
             EdgeOptions options = new EdgeOptions();
             Map<String, Object> edgeOptions = new HashMap<>();
+//            edgeOptions.put("args", new String[] {"--no-sandbox"});
             options.setCapability("ms:edgeOptions", edgeOptions);
             driver = new EdgeDriver(options);
         }

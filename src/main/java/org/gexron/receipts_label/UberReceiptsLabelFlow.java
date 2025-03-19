@@ -70,8 +70,9 @@ public class UberReceiptsLabelFlow implements ReceiptsLabelFlow {
 
     private List<String> getTripEndpoints(String[] pdfLines) {
         return Arrays.stream(pdfLines)
-                .filter(line -> line.contains("PM |") || line.contains("AM |"))
-                .map(line -> line.split(" \\| ")[1])
+                .filter(line -> line.contains("|") && line.contains(":"))
+                .flatMap(line -> Arrays.stream(line.split(" \\|")))
+                .filter(line -> !line.contains(":"))
                 .collect(Collectors.toList());
     }
 

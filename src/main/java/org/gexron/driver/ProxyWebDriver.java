@@ -67,7 +67,7 @@ public abstract class ProxyWebDriver {
 
         String browserProfilePath = null;
         if (os.contains("win")) {
-            browserProfilePath = Paths.get(userHome, "AppData", "Local", "Microsoft Edge", "User Data").toString();
+            browserProfilePath = Paths.get(userHome, "AppData", "Local", "Microsoft", "Edge", "User Data").toString();
         } else if (os.contains("mac")) {
             browserProfilePath = Paths.get(userHome, "Library", "Application Support", "Google", "Chrome").toString();
         }

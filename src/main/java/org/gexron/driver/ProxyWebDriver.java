@@ -60,26 +60,6 @@ public abstract class ProxyWebDriver {
 
     public void quit() {
         driver.quit();
-        terminateBrowserDriverProcess();
-    }
-
-    private void terminateBrowserDriverProcess() {
-        try {
-            // Terminate the ChromeDriver process using the task manager
-            String os = System.getProperty("os.name").toLowerCase();
-
-            if (os.contains("win")) {
-                // On Windows, kill the chromedriver process via Taskkill
-                Runtime.getRuntime().exec("taskkill /F /IM edgedriver.exe");
-                logger.info("Terminated edgedriver process.");
-            } else if (os.contains("mac")) {
-                // On Unix-based systems (Linux/macOS), kill the chromedriver process
-                Runtime.getRuntime().exec("pkill chromedriver");
-                logger.info("Terminated chromedriver process.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private static String getBrowserUserDataDir() {
